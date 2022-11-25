@@ -26,34 +26,17 @@ public class Test {
     private static DemandeService demandeService = new DemandeService();
 
     public static void main(String[] args) {
-        /*
-         * produitService.create(new Produit("Clavier", 1000));
-         * produitService.create(new Produit("USB", 200));
-         * clientService.create(new Client("mazzouz", "060342340", "bouti@gmail.com"));
-         * clientService.create(new Client("Issam", "063623440", "mazzouz@gmail.com"));
-         * Commande commande1 = new Commande(new Date(), clientService.findById(1));
-         * commande1.getLigneCommandes().add(new LigneCommande(10, 1000, commande1,
-         * produitService.findById(1)));
-         * Commande commande2 = new Commande(new Date(), clientService.findById(2));
-         * commande2.getLigneCommandes().add(new LigneCommande(10, 1100, commande2,
-         * produitService.findById(1)));
-         * commande2.getLigneCommandes().add(new LigneCommande(20, 2000, commande2,
-         * produitService.findById(2)));
-         * 
-         * commandeService.create(commande1);
-         * commandeService.create(commande2);
-         */
 
         boolean quite = false;
         while (true) {
             if (quite)
                 break;
-            System.out.println("1 ---- Gestion Produit");
-            System.out.println("2 ---- Gestion Client");
-            System.out.println("3 ---- Gestion Command");
-            System.out.println("4 ---- Gestion Fournisseur");
-            System.out.println("5 ---- Gestion Demande");
-            System.out.println("6 ---- Quitter");
+            System.out.println("1 ---- Gestion Produit----");
+            System.out.println("2 ---- Gestion Client----");
+            System.out.println("3 ---- Gestion Command----");
+            System.out.println("4 ---- Gestion Fournisseur----");
+            System.out.println("5 ---- Gestion Demande----");
+            System.out.println("6 ---- Quitter----");
             String choix = scanner.next();
             switch (choix) {
                 case "1":
@@ -86,49 +69,49 @@ public class Test {
         while (true) {
             if (backToMain)
                 break;
-            System.out.println("----------------- Gestion Produit -----------------");
-            System.out.println("1 - Ajouter Produit");
-            System.out.println("2 - Supprimer Produit");
-            System.out.println("3 - Modifier Produit");
-            System.out.println("4 - Afficher Produits");
+            System.out.println("************ Gestion Produit ************");
+            System.out.println("1 - Ajouter Produit :");
+            System.out.println("2 - Supprimer Produit :");
+            System.out.println("3 - Modifier Produit :");
+            System.out.println("4 - Afficher Produits :");
             System.out.println("5 - Quitter");
             String choix = scanner.next();
             switch (choix) {
                 case "1":
-                    System.out.println("----Entrer les informations de Produit : ");
-                    System.out.println("Entrer Designation  ---- ");
+                    System.out.println("---->Entrer les informations de Produit : ");
+                    System.out.println("Entrer Designation  ----> ");
                     String designation = scanner.next();
-                    System.out.println("Entrer Prix Achat ---- ");
+                    System.out.println("Entrer Prix Achat ----> ");
                     float prixAchat = scanner.nextFloat();
                     boolean resultCreate = produitService.create(new Produit(designation, prixAchat));
                     if (resultCreate)
-                        System.out.println("Ajout Effectue");
+                        System.out.println("<<Ajout Effectue>>");
                     else
-                        System.out.println("Erreur");
+                        System.out.println("!!Erreur!!");
                     break;
                 case "2":
-                    System.out.println("Entrer Id Produit ---- ");
+                    System.out.println("Entrer Id Produit ----> ");
                     int idToDelete = scanner.nextInt();
                     boolean resultDelete = produitService.delete(produitService.findById(idToDelete));
                     if (resultDelete)
-                        System.out.println("Supprission Effectue");
+                        System.out.println("<<Supprission Effectue>>");
                     else
-                        System.out.println("Erreur");
+                        System.out.println("!!Erreur!!");
                     break;
                 case "3":
-                    System.out.println("----Entrer Id Produit A Modifier ---- ");
+                    System.out.println("----> Entrer Id Produit A Modifier : ");
                     int idToModify = scanner.nextInt();
-                    System.out.println("Entrer Designation  ---- ");
+                    System.out.println("Entrer Designation  ----> ");
                     String newDesignation = scanner.next();
-                    System.out.println("Entrer Prix Achat ---- ");
+                    System.out.println("Entrer Prix Achat ----> ");
                     float newPrixAchat = scanner.nextFloat();
                     Produit updatedProduit = new Produit(newDesignation, newPrixAchat);
                     updatedProduit.setId(idToModify);
                     boolean resultUpdate = produitService.update(updatedProduit);
                     if (resultUpdate)
-                        System.out.println("Modification Effectue");
+                        System.out.println("<<Modification Effectue>>");
                     else
-                        System.out.println("Erreur");
+                        System.out.println("!!Erreur!!");
                     break;
                 case "4":
                     System.out.println(produitService);
@@ -137,7 +120,7 @@ public class Test {
                     backToMain = true;
                     break;
                 default:
-                    System.out.println("Choix Invalide");
+                    System.out.println("Choix Invalide!!");
                     break;
             }
         }
@@ -148,40 +131,40 @@ public class Test {
         while (true) {
             if (backToMain)
                 break;
-            System.out.println("1 - Ajouter Client");
-            System.out.println("2 - Supprimer Client");
-            System.out.println("3 - Modifier Client");
-            System.out.println("4 - Afficher Clients");
-            System.out.println("5 - Quitter");
+            System.out.println("1 - Ajouter Client : ");
+            System.out.println("2 - Supprimer Client : ");
+            System.out.println("3 - Modifier Client : ");
+            System.out.println("4 - Afficher Clients : ");
+            System.out.println("5 - Quitter : ");
             String choix = scanner.next();
             switch (choix) {
                 case "1":
-                    System.out.println("----Entrer les Informations de Client : ");
-                    System.out.println("Entrer Nom  ---- ");
+                    System.out.println("----> Entrer les Informations de Client : ");
+                    System.out.println("Entrer Nom  ----> ");
                     String nom = scanner.next();
-                    System.out.println("Entrer Telephone ---- ");
+                    System.out.println("Entrer Telephone ----> ");
                     String telephone = scanner.next();
-                    System.out.println("Entrer Email ---- ");
+                    System.out.println("Entrer Email ----> ");
                     String email = scanner.next();
                     boolean resultCreate = clientService.create(new Client(nom, telephone, email));
                     if (resultCreate)
-                        System.out.println("Ajout Effectue");
+                        System.out.println("<<Ajout Effectue>>");
                     else
-                        System.out.println("Erreur");
+                        System.out.println("!!Erreur!!");
                     break;
                 case "2":
-                    System.out.println("----Entrer Id Client : ");
+                    System.out.println("----> Entrer Id Client : ");
                     int idToDelete = scanner.nextInt();
                     boolean resultDelete = clientService.delete(clientService.findById(idToDelete));
                     if (resultDelete)
-                        System.out.println("Supprission Effectue");
+                        System.out.println("<<Supprission Effectue>>");
                     else
-                        System.out.println("Erreur");
+                        System.out.println("!!Erreur!!");
                     break;
                 case "3":
-                    System.out.println("----Entrer Id Client A Modifier : ");
+                    System.out.println("----> Entrer Id Client A Modifier : ");
                     int idToModify = scanner.nextInt();
-                    System.out.println("----Entrer Nouveau Informations : ");
+                    System.out.println("----> Entrer Nouveau Informations : ");
                     System.out.println("Entrer Nom  : ");
                     String newNom = scanner.next();
                     System.out.println("Entrer Telephone : ");
@@ -192,9 +175,9 @@ public class Test {
                     updatedClient.setId(idToModify);
                     boolean resultUpdate = clientService.update(updatedClient);
                     if (resultUpdate)
-                        System.out.println("Modification Effectue");
+                        System.out.println("<<Modification Effectue>>");
                     else
-                        System.out.println("Erreur");
+                        System.out.println("!!Erreur!!");
                     break;
                 case "4":
                     System.out.println(clientService);
@@ -203,7 +186,7 @@ public class Test {
                     backToMain = true;
                     break;
                 default:
-                    System.out.println("Invalid Choix");
+                    System.out.println("Invalid Choix!!");
                     break;
             }
         }
@@ -214,27 +197,27 @@ public class Test {
         while (true) {
             if (backToMain)
                 break;
-            System.out.println("1 - Ajouter Command");
-            System.out.println("2 - Supprimer Command");
-            System.out.println("3 - Modifier Command");
-            System.out.println("4 - Afficher Command");
-            System.out.println("5 - quitter gestion command");
+            System.out.println("1 - Ajouter Command  :");
+            System.out.println("2 - Supprimer Command :");
+            System.out.println("3 - Modifier Command :");
+            System.out.println("4 - Afficher Command :");
+            System.out.println("5 - quitter gestion command :");
             String choix = scanner.next();
             switch (choix) {
                 case "1":
-                    System.out.println("Entrer ClientId  : ");
+                    System.out.println("---> Entrer Client Id  : ");
                     int commandClientId = scanner.nextInt();
                     Commande newCommande = new Commande(new Date(), clientService.findById(commandClientId));
-                    System.out.println("Entrer Les LigneCommande ");
+                    System.out.println("Entrer Les LigneCommande --->");
                     myWhile: while (true) {
-                        System.out.println("1 - Ajouter LigneCommande");
-                        System.out.println("2 - quitter LigneCommande");
+                        System.out.println("1 - Ajouter LigneCommande :");
+                        System.out.println("2 - quitter LigneCommande :");
                         String choixNewLigne = scanner.next();
                         switch (choixNewLigne) {
                             case "1":
-                                System.out.println("Entrer Produit Id  : ");
+                                System.out.println("-->Entrer Produit Id  : ");
                                 int ligneProduitId = scanner.nextInt();
-                                System.out.println("Entrer Qte  : ");
+                                System.out.println("-->Entrer Qte  : ");
                                 int ligneQte = scanner.nextInt();
                                 newCommande.getLigneCommandes()
                                         .add(new LigneCommande(ligneQte,
@@ -247,37 +230,37 @@ public class Test {
                     }
                     boolean resultatCreateCommande = commandeService.create(newCommande);
                     if (resultatCreateCommande)
-                        System.out.println("Ajout Effectue");
+                        System.out.println("<<Ajout Effectue>>");
                     else
-                        System.out.println("Erreur");
+                        System.out.println("!!Erreur!!");
                     break;
                 case "2":
-                    System.out.println("Entrer Id Commande : ");
+                    System.out.println("---> Entrer Id Commande : ");
                     int idToDelete = scanner.nextInt();
                     boolean resultDelete = commandeService.delete(commandeService.findById(idToDelete));
                     if (resultDelete)
-                        System.out.println("Supprission Effectue");
+                        System.out.println("<<Supprission Effectue>>");
                     else
-                        System.out.println("Erreur");
+                        System.out.println("!!Erreur!!");
                     break;
                 case "3":
-                    System.out.println("Entrer Id Commande A Modifier ---- ");
+                    System.out.println("Entrer Id Commande A Modifier ----> ");
                     int idToModify = scanner.nextInt();
 
-                    System.out.println("Client Id  ---- ");
+                    System.out.println("Client Id  ----> ");
                     int updatedClientId = scanner.nextInt();
                     Commande updatedCommand = new Commande(new Date(), clientService.findById(updatedClientId));
                     updatedCommand.setId(idToModify);
-                    System.out.println("Entrer Les Nouveaux LigneCommande ");
+                    System.out.println("--->Entrer Les Nouveaux LigneCommande : ");
                     myWhile: while (true) {
-                        System.out.println("1 - Ajouter LigneCommande");
-                        System.out.println("2 - quitter");
+                        System.out.println("1 - Ajouter LigneCommande :");
+                        System.out.println("2 - quitter :");
                         String choixNewLigne = scanner.next();
                         switch (choixNewLigne) {
                             case "1":
-                                System.out.println("Produit Id  : ");
+                                System.out.println("--->Produit Id  : ");
                                 int ligneProduitId = scanner.nextInt();
-                                System.out.println("Qte  : ");
+                                System.out.println("--->Qte  : ");
                                 int ligneQte = scanner.nextInt();
                                 updatedCommand.getLigneCommandes()
                                         .add(new LigneCommande(ligneQte,
@@ -290,7 +273,7 @@ public class Test {
                     }
                     boolean resultUpdate = commandeService.update(updatedCommand);
                     if (resultUpdate)
-                        System.out.println("Modification Effectue");
+                        System.out.println("--->Modification Effectue");
                     else
                         System.out.println("Erreur");
                     break;
