@@ -13,25 +13,26 @@ import entities.Client;
 
 public class ClientService implements IDao<Client> {
 
-    private List<Client> clients;
-
     public ClientService() {
-        this.clients = new ArrayList<Client>();
     }
 
     @Override
     public boolean create(Client o) {
         try {
             String req = "insert into client values (null, ?, ? , ? )";
-            PreparedStatement ps = Connexion.getConnection().prepareStatement(req);
+            PreparedStatement ps = Connexion.getConnection().prepareStatement(req, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, o.getNom());
             ps.setString(2, o.getTelephone());
             ps.setString(3, o.getEmail());
-            if (ps.executeUpdate() == 1)
+            if (ps.executeUpdate() == 1) {
+                ResultSet rs = ps.getGeneratedKeys();
+                rs.next();
+                int lastInserted = rs.getInt(1);
+                o.setId(lastInserted);
                 return true;
+            }
 
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return false;
@@ -46,7 +47,6 @@ public class ClientService implements IDao<Client> {
             if (ps.executeUpdate() == 1)
                 return true;
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return false;
@@ -72,12 +72,20 @@ public class ClientService implements IDao<Client> {
 
     @Override
     public Client findById(int id) {
-        for (Client client : clients) {
-            if (client.getId() == id) {
-                return client;
-            }
+        Client client = null;
+        try {
+            String sql = "select * from client where id=" + id;
+            Statement st = Connexion.getConnection().createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next())
+                client = new Client(rs.getInt("id"),
+                        rs.getString("nom"),
+                        rs.getString("telephone"),
+                        rs.getString("email"));
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return null;
+        return client;
     }
 
     @Override
