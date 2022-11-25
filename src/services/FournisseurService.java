@@ -30,7 +30,6 @@ public class FournisseurService implements IDao<Fournisseur> {
                 return true;
 
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return false;
@@ -45,7 +44,6 @@ public class FournisseurService implements IDao<Fournisseur> {
             if (ps.executeUpdate() == 1)
                 return true;
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return false;
