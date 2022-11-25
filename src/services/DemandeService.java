@@ -11,10 +11,12 @@ import java.util.List;
 import connexion.Connexion;
 import dao.IDao;
 import entities.Demande;
+import entities.LigneDemande;
 
 public class DemandeService implements IDao<Demande> {
     private ArrayList<Demande> demandes;
     private FournisseurService Fs;
+    LigneDemandeService ligneDemandeService = new LigneDemandeService();
 
     public DemandeService() {
         this.demandes = new ArrayList<>();
@@ -25,14 +27,20 @@ public class DemandeService implements IDao<Demande> {
     public boolean create(Demande o) {
         try {
             String req = "insert into demande values (null, ?, ? )";
-            PreparedStatement ps = Connexion.getConnection().prepareStatement(req);
+            PreparedStatement ps = Connexion.getConnection().prepareStatement(req, Statement.RETURN_GENERATED_KEYS);
             ps.setDate(1, new Date(o.getDate().getTime()));
             ps.setInt(2, o.getFournisseur().getId());
-            if (ps.executeUpdate() == 1)
+            if (ps.executeUpdate() == 1) {
+                ResultSet rs = ps.getGeneratedKeys();
+                rs.next();
+                int lastInserted = rs.getInt(1);
+                o.setId(lastInserted);
+                for (LigneDemande ligneDemande : o.getLigneDemandes())
+                    ligneDemandeService.create(ligneDemande);
                 return true;
+            }
 
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return false;
@@ -47,7 +55,6 @@ public class DemandeService implements IDao<Demande> {
             if (ps.executeUpdate() == 1)
                 return true;
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return false;
@@ -65,7 +72,6 @@ public class DemandeService implements IDao<Demande> {
                 return true;
 
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return false;
@@ -73,26 +79,34 @@ public class DemandeService implements IDao<Demande> {
 
     @Override
     public Demande findById(int id) {
-        for (Demande c : this.demandes)
-            if (c.getId() == id)
-                return c;
-        return null;
+        Demande demande = null;
+        try {
+            String req = "select * from demande where id=" + id;
+            Statement st = Connexion.getConnection().createStatement();
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next())
+                demande = new Demande(rs.getInt("id"),
+                        rs.getDate("date"), Fs.findById(rs.getInt("fournisseur")));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return demande;
     }
 
     @Override
     public List<Demande> findAll() {
-        List<Demande> commandes = new ArrayList<Demande>();
+        List<Demande> demandes = new ArrayList<Demande>();
         try {
-            String sql = "select * from fournisseur";
+            String sql = "select * from demande";
             Statement st = Connexion.getConnection().createStatement();
             ResultSet rs = st.executeQuery(sql);
             while (rs.next())
-                commandes.add(new Demande(rs.getInt("id"),
+                demandes.add(new Demande(rs.getInt("id"),
                         rs.getDate("date"), Fs.findById(rs.getInt("fournisseur"))));
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return commandes;
+        return demandes;
     }
 
 }
