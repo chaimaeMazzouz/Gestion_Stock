@@ -9,18 +9,14 @@ public class Client {
     private String email;
     private ArrayList<Commande> commandes;
 
-    private static int count = 0;
-
-    public Client(int id, String nom, String telephone, String email, ArrayList<Commande> commandes) {
+    public Client(int id, String nom, String telephone, String email) {
         this.id = id;
         this.nom = nom;
         this.telephone = telephone;
         this.email = email;
-        this.commandes = commandes;
     }
 
     public Client(String nom, String telephone, String email) {
-        this.id = ++count;
         this.nom = nom;
         this.telephone = telephone;
         this.email = email;
@@ -71,9 +67,8 @@ public class Client {
     public String toString() {
         String commandPass = "";
         for (Commande commande : this.commandes)
-            commandPass += "\n\t - " + commande.getId() + " " + commande.getDate() + "\n";
-        return "=>Client nom = " + nom + ", telephone = " + telephone + ", email = " + email +
-                "\n  les commandes effectue : " + commandPass;
+            commandPass += "\n\t ** " + commande.getId() + " " + commande.getDate() + "\n";
+        return "--> Client \n\t\tnom : " + nom + ", telephone : " + telephone + ", email : " + email +
+                "\n\t\t  les commandes effectue : " + commandPass;
     }
-
 }

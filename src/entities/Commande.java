@@ -8,19 +8,15 @@ public class Commande {
     private Date date;
     private Client client;
 
-    private ArrayList<LigneCommande> ligneCommandes;
-
-    private static int count;
-
     public Commande(int id, Date date, Client client) {
         this.id = id;
         this.date = date;
         this.client = client;
-        this.ligneCommandes = new ArrayList<>();
     }
 
+    private ArrayList<LigneCommande> ligneCommandes;
+
     public Commande(Date date, Client client) {
-        this.id = ++count;
         this.date = date;
         this.client = client;
         this.ligneCommandes = new ArrayList<>();
@@ -67,11 +63,10 @@ public class Commande {
 
     @Override
     public String toString() {
-        String txt = "Commande id=" + id + ", date=" + date + ", ClientId=" + client.getId()
-                + " \nligneCommandes : ";
+        String txt = "** Commande id : " + id + ", date : " + date + ", Client Id : " + client.getId()
+                + " \n --> ligneCommandes : ";
         for (LigneCommande ligneCommande : ligneCommandes)
             txt += ligneCommande.toString();
         return txt;
     }
-
 }

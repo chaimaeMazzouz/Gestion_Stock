@@ -25,10 +25,7 @@ public class Fournisseur {
         this.demandes = demandes;
     }
 
-    private static int comp;
-
     public Fournisseur(String nom, String telephone, String email) {
-        this.id = ++comp;
         this.nom = nom;
         this.telephone = telephone;
         this.email = email;
@@ -80,8 +77,8 @@ public class Fournisseur {
         String demandeIds = "";
         for (Demande demande : this.demandes)
             demandeIds += demande.getId() + " ";
-        return "Fournisseur [id=" + id + ", nom=" + nom + ", telephone=" + telephone + ", email=" + email
-                + ", demandeID=" + demandeIds + "]";
+        return "**Fournisseur id : " + id + ", nom : " + nom + ", telephone : " + telephone + ", email : " + email
+                + ", demandeID : " + demandeIds;
     }
 
 }

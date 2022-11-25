@@ -23,15 +23,15 @@ public class CommandeService implements IDao<Commande> {
     @Override
     public boolean create(Commande o) {
         try {
-            String req = "insert into commande values (null, ?, ? )";
+            String req = "insert into commande values (?, ?, ? )";
             PreparedStatement ps = Connexion.getConnection().prepareStatement(req);
-            ps.setDate(1, new Date(o.getDate().getTime()));
-            ps.setInt(2, o.getClient().getId());
+            ps.setInt(1, o.getId());
+            ps.setDate(2, new Date(o.getDate().getTime()));
+            ps.setInt(3, o.getClient().getId());
             if (ps.executeUpdate() == 1)
                 return true;
 
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return false;
@@ -46,7 +46,6 @@ public class CommandeService implements IDao<Commande> {
             if (ps.executeUpdate() == 1)
                 return true;
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return false;
@@ -64,7 +63,6 @@ public class CommandeService implements IDao<Commande> {
                 return true;
 
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return false;
@@ -72,8 +70,23 @@ public class CommandeService implements IDao<Commande> {
 
     @Override
     public Commande findById(int id) {
-
+        /*
+         * Commande commande = null;
+         * try {
+         * String sql = "select * from commande where id = " + id;
+         * Statement st = Connexion.getConnection().createStatement();
+         * ResultSet rs = st.executeQuery(sql);
+         * 
+         * while (rs.next())
+         * commande = new Commande(rs.getInt("id"),
+         * rs.getDate("date"), cs.findById(rs.getInt("client")));
+         * } catch (SQLException e) {
+         * e.printStackTrace();
+         * }
+         * return commande;
+         */
         return null;
+
     }
 
     @Override

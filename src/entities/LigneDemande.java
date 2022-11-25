@@ -47,8 +47,8 @@ public class LigneDemande {
 
     @Override
     public String toString() {
-        return "LigneDemande [quantite=" + quantite + ", prix=" + prix + ", demande=" + demande + ", produit=" + produit
-                + "]";
+        return "LigneDemande quantite : " + quantite + ", prix : " + prix + ", demande : " + demande + ", produit : "
+                + produit;
     }
 
 }

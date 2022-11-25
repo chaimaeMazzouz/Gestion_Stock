@@ -5,8 +5,6 @@ public class Produit {
     private String designation;
     private float prixAchat;
 
-    private static int count = 0;
-
     public Produit(int id, String designation, float prixAchat) {
         this.id = id;
         this.designation = designation;
@@ -14,7 +12,6 @@ public class Produit {
     }
 
     public Produit(String designation, float prixAchat) {
-        this.id = ++count;
         this.designation = designation;
         this.prixAchat = prixAchat;
     }

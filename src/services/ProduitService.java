@@ -13,9 +13,11 @@ import entities.Produit;
 
 public class ProduitService implements IDao<Produit> {
     private List<Produit> produits;
+    // private ProduitService cs;
 
     public ProduitService() {
         this.produits = new ArrayList<Produit>();
+        // cs = new ProduitService();
     }
 
     @Override
@@ -67,12 +69,23 @@ public class ProduitService implements IDao<Produit> {
 
     @Override
     public Produit findById(int id) {
-        for (Produit produit : produits) {
-            if (produit.getId() == id) {
-                return produit;
-            }
-        }
+        /*
+         * Produit produit = null;
+         * try {
+         * String sql = "select * from produit where id = " + id;
+         * Statement st = Connexion.getConnection().createStatement();
+         * ResultSet rs = st.executeQuery(sql);
+         * 
+         * while (rs.next())
+         * produit = new Produit(rs.getInt("id"), rs.getString("designation"),
+         * rs.getFloat("prixAchat"));
+         * } catch (SQLException e) {
+         * e.printStackTrace();
+         * }
+         * return produit;
+         */
         return null;
+
     }
 
     @Override

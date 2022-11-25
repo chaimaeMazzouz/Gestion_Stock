@@ -23,10 +23,7 @@ public class Demande {
         this.ligneDemandes = ligneDemandes;
     }
 
-    private static int comp;
-
     public Demande(Date date, Fournisseur fournisseur) {
-        this.id = ++comp;
         this.date = date;
         this.fournisseur = fournisseur;
         this.ligneDemandes = new ArrayList<>();
@@ -66,14 +63,14 @@ public class Demande {
 
     @Override
     public String toString() {
-        String info = " - Demande [id=" + id + ", date=" + date + ", FournisseurId=" + fournisseur.getId()
-                + " ]\n => ligneDemandes : \n";
+        String info = " ** Demande id : " + id + ", date : " + date + ", Fournisseur Id : " + fournisseur.getId()
+                + " \n\t --> ligneDemandes : \n";
         for (LigneDemande ligneDemande : ligneDemandes)
             info += "\t- " + ligneDemande.toString();
         float prixTotal = 0;
         for (LigneDemande ligneDemande : ligneDemandes)
             prixTotal += ligneDemande.getPrix() * ligneDemande.getQuantite();
-        info += "\t- Total => " + prixTotal + "\n\n";
+        info += "\t- Total : " + prixTotal + "\n\n";
         return info;
     }
 }
