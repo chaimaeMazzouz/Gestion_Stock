@@ -11,9 +11,10 @@ import java.util.List;
 import connexion.Connexion;
 import dao.IDao;
 import entities.Commande;
+import entities.LigneCommande;
 
 public class CommandeService implements IDao<Commande> {
-
+    LigneCommandeService ligneCommandeService = new LigneCommandeService();
     private ClientService cs;
 
     public CommandeService() {
@@ -23,13 +24,20 @@ public class CommandeService implements IDao<Commande> {
     @Override
     public boolean create(Commande o) {
         try {
-            String req = "insert into commande values (?, ?, ? )";
-            PreparedStatement ps = Connexion.getConnection().prepareStatement(req);
-            ps.setInt(1, o.getId());
-            ps.setDate(2, new Date(o.getDate().getTime()));
-            ps.setInt(3, o.getClient().getId());
-            if (ps.executeUpdate() == 1)
+            String req = "insert into commande values (null, ?, ? )";
+            PreparedStatement ps = Connexion.getConnection().prepareStatement(req, Statement.RETURN_GENERATED_KEYS);
+            ps.setDate(1, new Date(o.getDate().getTime()));
+            ps.setInt(2, o.getClient().getId());
+
+            if (ps.executeUpdate() == 1) {
+                ResultSet rs = ps.getGeneratedKeys();
+                rs.next();
+                int lastInserted = rs.getInt(1);
+                o.setId(lastInserted);
+                for (LigneCommande ligneCommande : o.getLigneCommandes())
+                    ligneCommandeService.create(ligneCommande);
                 return true;
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -70,22 +78,18 @@ public class CommandeService implements IDao<Commande> {
 
     @Override
     public Commande findById(int id) {
-        /*
-         * Commande commande = null;
-         * try {
-         * String sql = "select * from commande where id = " + id;
-         * Statement st = Connexion.getConnection().createStatement();
-         * ResultSet rs = st.executeQuery(sql);
-         * 
-         * while (rs.next())
-         * commande = new Commande(rs.getInt("id"),
-         * rs.getDate("date"), cs.findById(rs.getInt("client")));
-         * } catch (SQLException e) {
-         * e.printStackTrace();
-         * }
-         * return commande;
-         */
-        return null;
+        Commande commande = null;
+        try {
+            String req = "select * from commande where id=" + id;
+            Statement st = Connexion.getConnection().createStatement();
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next())
+                commande = new Commande(rs.getInt("id"),
+                        rs.getDate("date"), cs.findById(rs.getInt("client")));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return commande;
 
     }
 
